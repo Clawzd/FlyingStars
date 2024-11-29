@@ -1,4 +1,7 @@
 package com.example.flyingstars;
 
-public class Xcircle {
+import javafx.scene.Group;
+
+public class Xcircle extends Group {
+
 }
