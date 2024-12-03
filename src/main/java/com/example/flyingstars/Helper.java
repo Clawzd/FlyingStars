@@ -18,7 +18,7 @@ public class Helper {
             ColorList.add(Color.RED);
             ColorList.add(Color.GREEN);
             ColorList.add(Color.YELLOW);
-            ColorList.add(Color.BLACK);
+            ColorList.add(Color.WHITE);
             ColorList.add(Color.BLUE);
             ColorList.add(Color.ORANGE);
             ColorList.add(Color.PURPLE);
