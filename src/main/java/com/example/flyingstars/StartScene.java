@@ -28,9 +28,9 @@ public class StartScene {
 
         startButton.setBackground(new Background(new BackgroundFill(Color.PURPLE, null, null)));
 
-        startButton.setLayoutX(290); // الموقع الأفقي
-        startButton.setLayoutY(500); // الموقع العمودي
-        startButton.setOnAction(e -> stage.setScene(gameScene)); // عند النقر على الزر، انتقل للمشهد الآخر
+        startButton.setLayoutX(290);
+        startButton.setLayoutY(500);
+        startButton.setOnAction(e -> stage.setScene(gameScene));
 
 
         choiceBox.getItems().addAll("Easy", "Medium", "Hard");
