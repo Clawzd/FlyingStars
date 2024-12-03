@@ -19,7 +19,7 @@ public class StartScene {
 
     public StartScene(Stage stage, Scene gameScene) {
 
-        // زر البدء
+
         Button startButton = new Button("Start");
 
         startButton.setScaleX(2);
@@ -40,17 +40,17 @@ public class StartScene {
         choiceBox.getItems();
 
 
-        // صورة الخلفية
-        Image backgroundImage = new Image("StartScene.jpg"); // ضع ملف الصورة في نفس مسار المشروع أو استخدم المسار الكامل
+
+        Image backgroundImage = new Image("StartScene.jpg");
         ImageView backgroundView = new ImageView(backgroundImage);
-        backgroundView.setFitWidth(600); // عرض الخلفية
-        backgroundView.setFitHeight(600); // ارتفاع الخلفية
+        backgroundView.setFitWidth(600);
+        backgroundView.setFitHeight(600);
 
-        // التخطيط
+
         Pane root = new Pane();
-        root.getChildren().addAll(backgroundView, startButton,choiceBox); // أضف الخلفية والزر إلى التخطيط
+        root.getChildren().addAll(backgroundView, startButton,choiceBox);
 
-        // إعداد المشهد
+
         scene = new Scene(root, 600, 600);
     }
 
