@@ -117,7 +117,7 @@ public class Main extends Application {
         attemptsl.setScaleY(1.5);
 
 
-        reactionTimel.setText("Average Reaction Time: "+ attempts);
+        reactionTimel.setText("Average Reaction Time: "+ AverageReactionTime);
         reactionTimel.setLayoutX(230);
         reactionTimel.setLayoutY(10);
         reactionTimel.setTextFill(Color.WHITE);
