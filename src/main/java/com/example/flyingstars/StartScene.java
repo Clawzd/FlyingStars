@@ -30,7 +30,12 @@ public class StartScene {
 
         startButton.setLayoutX(290);
         startButton.setLayoutY(500);
-        startButton.setOnAction(e -> stage.setScene(gameScene));
+        startButton.setOnAction(e -> {
+
+            stage.setScene(gameScene);
+            Main.hitTime = System.currentTimeMillis();
+
+        });
 
 
         choiceBox.getItems().addAll("Easy", "Medium", "Hard");

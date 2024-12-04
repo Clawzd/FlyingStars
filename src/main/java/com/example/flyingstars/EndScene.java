@@ -12,7 +12,7 @@ import java.io.FileWriter;
 
 public class EndScene {
     private Scene scene;
-    public EndScene(int score) {
+    public EndScene(int score, double AverageReactionTime) {
         Pane root =new Pane();
 
         Image backgroundImage = new Image("Back.jpg");
@@ -23,14 +23,23 @@ public class EndScene {
 
         Label finalScore = new Label();
 
-        finalScore.setText("Final Score: "+score);
+        finalScore.setText("Your Score: "+score);
         finalScore.setTextFill(Color.WHITE);
         finalScore.setScaleX(3);
         finalScore.setScaleY(3);
         finalScore.setLayoutX(260);
         finalScore.setLayoutY(300);
 
-        root.getChildren().addAll(finalScore);
+        Label finalAverageReactionTime = new Label();
+
+        finalAverageReactionTime.setText("Your Average Reaction Time: "+AverageReactionTime+"s");
+        finalAverageReactionTime.setTextFill(Color.WHITE);
+        finalAverageReactionTime.setScaleX(2.5);
+        finalAverageReactionTime.setScaleY(2.5);
+        finalAverageReactionTime.setLayoutX(220);
+        finalAverageReactionTime.setLayoutY(350);
+
+        root.getChildren().addAll(finalScore,finalAverageReactionTime);
         scene = new Scene(root,600,600);
     }
 

@@ -25,11 +25,17 @@ public class Main extends Application {
     static int score=0;
     static int attempts=2;
 
+
     static ArrayList<Star>  stars = new ArrayList<Star>();
     static Group root = new Group();
-
     static Label scorel =new Label();
     static Label attemptsl =new Label();
+
+
+    static Label reactionTimel = new Label();
+    static long hitTime;
+    static double totalReactionTime = 0;
+    static double AverageReactionTime = 0;
 
 
     public static void onHit(Star star, BallCircle circle, Line hitLine) {
@@ -40,11 +46,22 @@ public class Main extends Application {
        boolean successful_hit = hitLine.getStroke().equals(circle.circle.getFill());
        if(successful_hit) {
            ++score;
-           scorel.setText("Score: "+ score);
+           scorel.setText("Score: "+score);
+
+           long currentTime = System.currentTimeMillis();
+           double reactionTimeInSeconds = (currentTime - hitTime) / 1000.0;
+           totalReactionTime += reactionTimeInSeconds;
+           hitTime = currentTime;
+
+
+           AverageReactionTime = totalReactionTime / score;
+           AverageReactionTime = (double) Math.round(AverageReactionTime * 100) / 100;
+
+           reactionTimel.setText("Average Reaction Time: "+AverageReactionTime+"s");
        }
        else {
            --attempts;
-           attemptsl.setText("attempts: "+ attempts);
+           attemptsl.setText("Attempts: "+attempts);
 
            root.getChildren().remove(circle);
            BallCircle new_circle = new BallCircle(stars.getLast(),new int[]{50,50});
@@ -92,7 +109,7 @@ public class Main extends Application {
         scorel.setScaleX(1.5);
         scorel.setScaleY(1.5);
 
-        attemptsl.setText("attempts: "+ attempts);
+        attemptsl.setText("Attempts: "+attempts);
         attemptsl.setLayoutX(100);
         attemptsl.setLayoutY(10);
         attemptsl.setTextFill(Color.WHITE);
@@ -100,7 +117,15 @@ public class Main extends Application {
         attemptsl.setScaleY(1.5);
 
 
-        root.getChildren().addAll(scorel,attemptsl);
+        reactionTimel.setText("Average Reaction Time: "+ attempts);
+        reactionTimel.setLayoutX(230);
+        reactionTimel.setLayoutY(10);
+        reactionTimel.setTextFill(Color.WHITE);
+        reactionTimel.setScaleX(1.5);
+        reactionTimel.setScaleY(1.5);
+
+
+        root.getChildren().addAll(scorel,attemptsl,reactionTimel);
 
         Scene scene = new Scene(root,600,600);
 
@@ -110,7 +135,7 @@ public class Main extends Application {
 
 
             if (attempts == 0) {
-                EndScene endScene = new EndScene(score);
+                EndScene endScene = new EndScene(score,AverageReactionTime);
                 stage.setScene(endScene.getScene());
             }
         }));
