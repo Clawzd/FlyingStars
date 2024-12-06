@@ -1,36 +1,37 @@
 package com.example.flyingstars;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 import java.io.IOException;
+import java.sql.Time;
 import java.util.ArrayList;
-
-import javafx.geometry.Bounds;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.Circle;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.util.Duration;
 
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public class Main extends Application {
+
+    static ArrayList<Star>  stars = new ArrayList<Star>();
+    static Group root = new Group();
+    public double interval = 0.2;
+    public Timeline timeline;
 
     static int score=0;
     static int attempts=2;
 
 
-    static ArrayList<Star>  stars = new ArrayList<Star>();
-    static Group root = new Group();
     static Label scorel =new Label();
     static Label attemptsl =new Label();
-
 
     static Label reactionTimel = new Label();
     static long hitTime;
@@ -38,12 +39,21 @@ public class Main extends Application {
     static double AverageReactionTime = 0;
 
 
+
     public static void onHit(Star star, BallCircle circle, Line hitLine) {
 
         stars.remove(star);
         root.getChildren().remove(star);
+
+        Star new_star = new Star();
+        root.getChildren().add(new_star);
+        new_star.StarSize(stars.getFirst().size*0.6);
+        new_star.setRotate(stars.getFirst().current_angle);
+        new_star.setAngle(stars.getFirst().current_angle);
+        stars.addFirst(new_star);
+//        System.out.println("star added with size" + stars.getFirst().size*0.7);
         circle.changeStar(stars.getLast());
-       boolean successful_hit = hitLine.getStroke().equals(circle.circle.getFill());
+        boolean successful_hit = hitLine.getStroke().equals(circle.circle.getFill());
        if(successful_hit) {
            ++score;
            scorel.setText("Score: "+score);
@@ -58,6 +68,8 @@ public class Main extends Application {
            AverageReactionTime = (double) Math.round(AverageReactionTime * 100) / 100;
 
            reactionTimel.setText("Average Reaction Time: "+AverageReactionTime+"s");
+
+
        }
        else {
            --attempts;
@@ -66,6 +78,7 @@ public class Main extends Application {
            root.getChildren().remove(circle);
            BallCircle new_circle = new BallCircle(stars.getLast(),new int[]{50,50});
            root.getChildren().add(new_circle);
+
 
        }
 
@@ -89,9 +102,9 @@ public class Main extends Application {
         Image icon = new Image("StartScene.jpg");
         stage.getIcons().add(icon);
 
+        double current_angle = 0;
 
-        int size = 2;
-        for (double i =1;i<=2.5; i=i+0.5) {
+        for (double i =0.5;i<=2; i=i+0.5) {
             Star star =new Star();
             star.StarSize(i);
             root.getChildren().add(star);
@@ -100,7 +113,45 @@ public class Main extends Application {
 
 
         BallCircle circle = new BallCircle(stars.getLast(), new int[]{500,400});
+
         root.getChildren().add(circle);
+        timeline = new Timeline(
+                new KeyFrame(
+                        Duration.seconds(interval),
+                        event -> {
+
+                            if(circle.intersect_on_released()) {
+                                timeline.stop();
+                                Alert alert = new Alert(Alert.AlertType.ERROR,
+                                        "You Were Inactive");
+                                alert.show();
+
+                            }
+                            if(circle.isTrapped() && stars.getLast().hits_boundary()) {
+                                timeline.stop();
+                                Alert alert = new Alert(Alert.AlertType.ERROR,
+                                        "You Lost");
+                                alert.show();
+
+                            }
+
+
+                                for (Star star: stars) {
+                                    star.StarSize(1.01);
+//                                  Here is the rotation function remove the comment if you want to test rotation, Jonathan
+
+//                                   star.setRotate(star.incrementCurrentAngle());
+
+                                }
+                        }
+                )
+        );
+        //
+
+        timeline.setCycleCount(Timeline.INDEFINITE);
+
+        // Start the timeline
+        timeline.play();
 
         scorel.setText("Score: "+ score);
         scorel.setLayoutX(15);
@@ -126,9 +177,7 @@ public class Main extends Application {
 
 
         root.getChildren().addAll(scorel,attemptsl,reactionTimel);
-
         Scene scene = new Scene(root,600,600);
-
         StartScene startScene = new StartScene(stage, scene);
 
         Timeline animation = new Timeline(new KeyFrame(Duration.millis(500), event -> {
@@ -144,10 +193,13 @@ public class Main extends Application {
         animation.play();
 
 
+
+
         stage.setResizable(false);
         stage.setScene(startScene.getScene());
         stage.setTitle("Flying Stars");
         stage.show();
+
 
 
     }

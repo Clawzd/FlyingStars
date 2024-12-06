@@ -40,6 +40,9 @@ public class EndScene {
         finalAverageReactionTime.setLayoutY(350);
 
         root.getChildren().addAll(finalScore,finalAverageReactionTime);
+
+
+
         scene = new Scene(root,600,600);
     }
 

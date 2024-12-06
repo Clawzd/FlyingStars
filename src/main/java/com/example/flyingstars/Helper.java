@@ -14,19 +14,19 @@ public class Helper {
     }
 
 
-        public  void add_colors() {
-            ColorList.add(Color.RED);
-            ColorList.add(Color.GREEN);
-            ColorList.add(Color.YELLOW);
-            ColorList.add(Color.WHITE);
-            ColorList.add(Color.BLUE);
-            ColorList.add(Color.ORANGE);
-            ColorList.add(Color.PURPLE);
-            ColorList.add(Color.SKYBLUE);
-            ColorList.add(Color.PINK);
-            ColorList.add(Color.BROWN);
+    public  void add_colors() {
+        ColorList.add(Color.RED);
+        ColorList.add(Color.GREEN);
+        ColorList.add(Color.YELLOW);
+        ColorList.add(Color.WHITE);
+        ColorList.add(Color.BLUE);
+        ColorList.add(Color.ORANGE);
+        ColorList.add(Color.PURPLE);
+        ColorList.add(Color.SKYBLUE);
+        ColorList.add(Color.PINK);
+        ColorList.add(Color.BROWN);
 
-        }
+    }
 
         public  Color get_circle_color() {
             Random random = new Random();

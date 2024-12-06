@@ -10,6 +10,7 @@ module com.example.flyingstars {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
+    requires java.sql;
 
     opens com.example.flyingstars to javafx.fxml;
     exports com.example.flyingstars;
