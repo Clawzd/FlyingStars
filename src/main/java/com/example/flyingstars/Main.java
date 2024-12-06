@@ -23,17 +23,18 @@ public class Main extends Application {
 
     static ArrayList<Star>  stars = new ArrayList<Star>();
     static Group root = new Group();
-    public double interval = 0.2;
-    public Timeline timeline;
+
+    public double interval = 0.03;
+    public double acceler= 0;
+    public static Timeline timeline;
 
     static int score=0;
     static int attempts=2;
 
-
     static Label scorel =new Label();
     static Label attemptsl =new Label();
-
     static Label reactionTimel = new Label();
+
     static long hitTime;
     static double totalReactionTime = 0;
     static double AverageReactionTime = 0;
@@ -84,6 +85,9 @@ public class Main extends Application {
 
 
     }
+    public static void startTimeline() {
+        timeline.play();
+    }
 
     public static void main(String[] args) {
         launch(args);
@@ -122,22 +126,26 @@ public class Main extends Application {
 
                             if(circle.intersect_on_released()) {
                                 timeline.stop();
-                                Alert alert = new Alert(Alert.AlertType.ERROR,
+                                EndScene endScene=new EndScene(score,AverageReactionTime,
                                         "You Were Inactive");
-                                alert.show();
+                                stage.setScene(endScene.getScene());
+
+
+
+
 
                             }
                             if(circle.isTrapped() && stars.getLast().hits_boundary()) {
                                 timeline.stop();
-                                Alert alert = new Alert(Alert.AlertType.ERROR,
+                                EndScene endScene=new EndScene(score,AverageReactionTime,
                                         "You Lost");
-                                alert.show();
-
+                                stage.setScene(endScene.getScene());
                             }
 
 
                                 for (Star star: stars) {
-                                    star.StarSize(1.01);
+//                                    acceler+=0.000001;
+                                    star.StarSize(1.003+acceler);
 //                                  Here is the rotation function remove the comment if you want to test rotation, Jonathan
 
 //                                   star.setRotate(star.incrementCurrentAngle());
@@ -151,7 +159,7 @@ public class Main extends Application {
         timeline.setCycleCount(Timeline.INDEFINITE);
 
         // Start the timeline
-        timeline.play();
+//        timeline.play();
 
         scorel.setText("Score: "+ score);
         scorel.setLayoutX(15);
@@ -184,7 +192,7 @@ public class Main extends Application {
 
 
             if (attempts == 0) {
-                EndScene endScene = new EndScene(score,AverageReactionTime);
+                EndScene endScene = new EndScene(score,AverageReactionTime,"You Lost");
                 stage.setScene(endScene.getScene());
             }
         }));

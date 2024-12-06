@@ -15,7 +15,7 @@ public class Helper {
 
 
     public  void add_colors() {
-        ColorList.add(Color.RED);
+        ColorList.add(Color.DARKRED);
         ColorList.add(Color.GREEN);
         ColorList.add(Color.YELLOW);
         ColorList.add(Color.WHITE);
@@ -24,7 +24,7 @@ public class Helper {
         ColorList.add(Color.PURPLE);
         ColorList.add(Color.SKYBLUE);
         ColorList.add(Color.PINK);
-        ColorList.add(Color.BROWN);
+        ColorList.add(Color.RED);
 
     }
 

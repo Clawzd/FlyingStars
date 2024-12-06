@@ -32,6 +32,7 @@ public class StartScene {
         startButton.setLayoutY(500);
         startButton.setOnAction(e -> {
 
+            Main.startTimeline();
             stage.setScene(gameScene);
             Main.hitTime = System.currentTimeMillis();
 
