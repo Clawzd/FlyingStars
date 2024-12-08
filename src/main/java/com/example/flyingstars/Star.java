@@ -15,7 +15,7 @@ public class Star extends Group {
    public double current_angle;
 
    public double incrementCurrentAngle() {
-       current_angle = current_angle + 10;
+       current_angle = current_angle + 1;
        return  current_angle;
 
    }

@@ -38,8 +38,8 @@ public class StartScene {
         });
 
 
-        choiceBox.getItems().addAll("Easy", "Medium", "Hard");
-        choiceBox.setValue("Easy");
+        choiceBox.getItems().addAll("Rotate off", "Rotate on");
+        choiceBox.setValue("Rotate off");
         choiceBox.setLayoutX(500);
         choiceBox.setLayoutY(500);
         choiceBox.getItems();
@@ -63,7 +63,11 @@ public class StartScene {
         return scene;
     }
 
-    public String getDifficulty() {
+    public String getRotate() {
         return choiceBox.getValue();
+    }
+
+    public boolean rotate() {
+        return getRotate().equals("Rotate on");
     }
 }

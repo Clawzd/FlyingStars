@@ -5,6 +5,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
@@ -23,11 +24,19 @@ public class Main extends Application {
 
     static ArrayList<Star>  stars = new ArrayList<Star>();
     static Group root = new Group();
+<<<<<<< Updated upstream
     public double interval = 0.2;
     public Timeline timeline;
+=======
+
+    public double interval = 0.03;
+    public double acceler= 0;
+    public static Timeline timeline;
+    public static BallCircle circle;
+>>>>>>> Stashed changes
 
     static int score=0;
-    static int attempts=2;
+    static int attempts=3;
 
 
     static Label scorel =new Label();
@@ -39,8 +48,24 @@ public class Main extends Application {
     static double AverageReactionTime = 0;
 
 
+    public static void restart(Stage stage) {
+        // Reset game variables
+        score = 0;
+        attempts = 3;
+        totalReactionTime = 0;
+        AverageReactionTime = 0;
 
-    public static void onHit(Star star, BallCircle circle, Line hitLine) {
+        // Reinitialize stars
+
+        // Reinitialize the circle
+        root.getChildren().removeAll();
+        circle = new BallCircle(stars.getLast());
+        root.getChildren().add(circle);
+        timeline.play();
+
+    }
+
+    public static void onHit(Star star, BallCircle circle1, Line hitLine) {
 
         stars.remove(star);
         root.getChildren().remove(star);
@@ -53,7 +78,7 @@ public class Main extends Application {
         stars.addFirst(new_star);
 //        System.out.println("star added with size" + stars.getFirst().size*0.7);
         circle.changeStar(stars.getLast());
-        boolean successful_hit = hitLine.getStroke().equals(circle.circle.getFill());
+        boolean successful_hit = hitLine.getStroke().equals(circle1.circle.getFill());
        if(successful_hit) {
            ++score;
            scorel.setText("Score: "+score);
@@ -75,9 +100,10 @@ public class Main extends Application {
            --attempts;
            attemptsl.setText("Attempts: "+attempts);
 
-           root.getChildren().remove(circle);
-           BallCircle new_circle = new BallCircle(stars.getLast(),new int[]{50,50});
-           root.getChildren().add(new_circle);
+           root.getChildren().remove(circle1);
+           circle = new BallCircle(stars.getLast());
+           circle.setDrag(false);
+           root.getChildren().add(circle);
 
 
        }
@@ -102,7 +128,6 @@ public class Main extends Application {
         Image icon = new Image("StartScene.jpg");
         stage.getIcons().add(icon);
 
-        double current_angle = 0;
 
         for (double i =0.5;i<=2; i=i+0.5) {
             Star star =new Star();
@@ -112,7 +137,9 @@ public class Main extends Application {
         }
 
 
-        BallCircle circle = new BallCircle(stars.getLast(), new int[]{500,400});
+        circle = new BallCircle(stars.getLast());
+        Scene scene = new Scene(root,600,600);
+        StartScene startScene = new StartScene(stage, scene);
 
         root.getChildren().add(circle);
         timeline = new Timeline(
@@ -120,27 +147,49 @@ public class Main extends Application {
                         Duration.seconds(interval),
                         event -> {
 
-                            if(circle.intersect_on_released()) {
+                            if(circle.intersect_on_released(stars.getLast())) {
                                 timeline.stop();
+<<<<<<< Updated upstream
                                 Alert alert = new Alert(Alert.AlertType.ERROR,
                                         "You Were Inactive");
                                 alert.show();
+=======
+                                EndScene endScene=new EndScene(score,AverageReactionTime,
+                                        "You Were Inactive", startScene.getScene(), stage);
+                                stage.setScene(endScene.getScene());
+
+>>>>>>> Stashed changes
 
                             }
-                            if(circle.isTrapped() && stars.getLast().hits_boundary()) {
+
+                             if(circle.isTrapped() && stars.getLast().hits_boundary()) {
                                 timeline.stop();
+<<<<<<< Updated upstream
                                 Alert alert = new Alert(Alert.AlertType.ERROR,
                                         "You Lost");
                                 alert.show();
 
+=======
+                                 EndScene endScene=new EndScene(score,AverageReactionTime,
+                                         "You were cornered", startScene.getScene(), stage);
+                                stage.setScene(endScene.getScene());
+>>>>>>> Stashed changes
                             }
 
 
-                                for (Star star: stars) {
-                                    star.StarSize(1.01);
-//                                  Here is the rotation function remove the comment if you want to test rotation, Jonathan
 
-//                                   star.setRotate(star.incrementCurrentAngle());
+                                for (Star star: stars) {
+<<<<<<< Updated upstream
+                                    star.StarSize(1.01);
+=======
+                                    acceler+=0.000001;
+                                    star.StarSize(1.003+acceler);
+>>>>>>> Stashed changes
+//                                  Here is the rotation function remove the comment if you want to test rotation, Jonathan
+                                    if(startScene.rotate()) {
+
+                                   star.setRotate(star.incrementCurrentAngle());
+                                    }
 
                                 }
                         }
@@ -152,6 +201,8 @@ public class Main extends Application {
 
         // Start the timeline
         timeline.play();
+
+
 
         scorel.setText("Score: "+ score);
         scorel.setLayoutX(15);
@@ -176,15 +227,20 @@ public class Main extends Application {
         reactionTimel.setScaleY(1.5);
 
 
+
+
+
         root.getChildren().addAll(scorel,attemptsl,reactionTimel);
-        Scene scene = new Scene(root,600,600);
-        StartScene startScene = new StartScene(stage, scene);
 
         Timeline animation = new Timeline(new KeyFrame(Duration.millis(500), event -> {
 
 
             if (attempts == 0) {
+<<<<<<< Updated upstream
                 EndScene endScene = new EndScene(score,AverageReactionTime);
+=======
+                EndScene endScene = new EndScene(score,AverageReactionTime,"You Ran Out Of Attempts",startScene.getScene(),stage);
+>>>>>>> Stashed changes
                 stage.setScene(endScene.getScene());
             }
         }));

@@ -47,15 +47,15 @@ public class Helper {
         Random random = new Random();
         Polygon copy = new Polygon();
         copy.getPoints().addAll(polygon.getPoints());
-        copy.setScaleX(1.2); // Increase width by 50%
-        copy.setScaleY(1.2); // Increase height by 50%
+        copy.setScaleX(1.3);
+        copy.setScaleY(1.3);
         double x, y;
 
         while (true) {
             x = minX + random.nextDouble() * (maxX - minX);
             y = minY + random.nextDouble() * (maxY - minY);
 
-            if (!copy.contains(x, y)) {
+            if (!polygon.getBoundsInParent().contains(x,y) & (x<590) & (y<590)) {
                 return new double[]{x, y};
             }
         }

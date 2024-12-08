@@ -1,5 +1,5 @@
 package com.example.flyingstars;
-
+import javafx.scene.control.Button;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -12,7 +12,14 @@ import java.io.FileWriter;
 
 public class EndScene {
     private Scene scene;
+<<<<<<< Updated upstream
     public EndScene(int score, double AverageReactionTime) {
+=======
+    private Scene scene_to_go;
+    public EndScene(int score, double AverageReactionTime,String n, Scene start_scene, Stage stage) {
+
+
+>>>>>>> Stashed changes
         Pane root =new Pane();
 
         Image backgroundImage = new Image("Back.jpg");
@@ -39,7 +46,30 @@ public class EndScene {
         finalAverageReactionTime.setLayoutX(220);
         finalAverageReactionTime.setLayoutY(350);
 
+<<<<<<< Updated upstream
         root.getChildren().addAll(finalScore,finalAverageReactionTime);
+=======
+
+        Label youWere = new Label();
+
+        youWere.setText(n);
+        youWere.setTextFill(Color.WHITE);
+        youWere.setScaleX(5);
+        youWere.setScaleY(5);
+        youWere.setLayoutX(265);
+        youWere.setLayoutY(200);
+
+        Button replay = new Button("Replay");
+        replay.setLayoutX(260);
+        replay.setLayoutY(10);
+        replay.setTextFill(Color.WHITE);
+        replay.setOnAction(event -> {
+            Main.restart(stage);
+            stage.setScene(start_scene);
+        });
+
+        root.getChildren().addAll(finalScore,finalAverageReactionTime,youWere,replay);
+>>>>>>> Stashed changes
 
 
 
