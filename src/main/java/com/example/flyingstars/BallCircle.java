@@ -133,6 +133,7 @@ public class BallCircle extends Group {
             Shape inter = Shape.intersect(circle,line);
             if(( inter.getBoundsInLocal().getWidth() > 0 &&
                     inter.getBoundsInLocal().getHeight() > 0) || line.contains(MyPosition.lX,MyPosition.lY))  {
+                Main.onHit(star,this,line);
                 return true;
             }
 

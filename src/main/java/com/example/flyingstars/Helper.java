@@ -4,6 +4,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 import javafx.geometry.Bounds;
 
+import javafx.scene.control.Label;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -15,7 +16,7 @@ public class Helper {
 
 
     public  void add_colors() {
-        ColorList.add(Color.RED);
+        ColorList.add(Color.DARKRED);
         ColorList.add(Color.GREEN);
         ColorList.add(Color.YELLOW);
         ColorList.add(Color.WHITE);
@@ -24,7 +25,7 @@ public class Helper {
         ColorList.add(Color.PURPLE);
         ColorList.add(Color.SKYBLUE);
         ColorList.add(Color.PINK);
-        ColorList.add(Color.BROWN);
+        ColorList.add(Color.RED);
 
     }
 
@@ -59,5 +60,18 @@ public class Helper {
                 return new double[]{x, y};
             }
         }
+    }
+
+
+    public static void LabelHelper(Label label, int layoutx,String text) {
+        label.setText(text);
+        label.setLayoutX(layoutx);
+        label.setLayoutY(10);
+        label.setTextFill(Color.WHITE);
+        label.setScaleX(1.5);
+        label.setScaleY(1.5);
+
+
+
     }
 }

@@ -12,14 +12,10 @@ import java.io.FileWriter;
 
 public class EndScene {
     private Scene scene;
-<<<<<<< Updated upstream
-    public EndScene(int score, double AverageReactionTime) {
-=======
     private Scene scene_to_go;
     public EndScene(int score, double AverageReactionTime,String n, Scene start_scene, Stage stage) {
 
 
->>>>>>> Stashed changes
         Pane root =new Pane();
 
         Image backgroundImage = new Image("Back.jpg");
@@ -46,9 +42,6 @@ public class EndScene {
         finalAverageReactionTime.setLayoutX(220);
         finalAverageReactionTime.setLayoutY(350);
 
-<<<<<<< Updated upstream
-        root.getChildren().addAll(finalScore,finalAverageReactionTime);
-=======
 
         Label youWere = new Label();
 
@@ -69,7 +62,6 @@ public class EndScene {
         });
 
         root.getChildren().addAll(finalScore,finalAverageReactionTime,youWere,replay);
->>>>>>> Stashed changes
 
 
 

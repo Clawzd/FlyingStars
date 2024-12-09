@@ -24,25 +24,19 @@ public class Main extends Application {
 
     static ArrayList<Star>  stars = new ArrayList<Star>();
     static Group root = new Group();
-<<<<<<< Updated upstream
-    public double interval = 0.2;
-    public Timeline timeline;
-=======
 
     public double interval = 0.03;
     public double acceler= 0;
     public static Timeline timeline;
     public static BallCircle circle;
->>>>>>> Stashed changes
 
     static int score=0;
     static int attempts=3;
 
-
     static Label scorel =new Label();
     static Label attemptsl =new Label();
-
     static Label reactionTimel = new Label();
+
     static long hitTime;
     static double totalReactionTime = 0;
     static double AverageReactionTime = 0;
@@ -110,6 +104,9 @@ public class Main extends Application {
 
 
     }
+    public static void startTimeline() {
+        timeline.play();
+    }
 
     public static void main(String[] args) {
         launch(args);
@@ -148,43 +145,40 @@ public class Main extends Application {
                         event -> {
 
                             if(circle.intersect_on_released(stars.getLast())) {
-                                timeline.stop();
-<<<<<<< Updated upstream
-                                Alert alert = new Alert(Alert.AlertType.ERROR,
-                                        "You Were Inactive");
-                                alert.show();
-=======
-                                EndScene endScene=new EndScene(score,AverageReactionTime,
-                                        "You Were Inactive", startScene.getScene(), stage);
-                                stage.setScene(endScene.getScene());
+                                System.out.println("Hit on inactive");
+//                                timeline.stop();
+//                                EndScene endScene=new EndScene(score,AverageReactionTime,
+//                                        "You Were Inactive", startScene.getScene(), stage);
+//                                stage.setScene(endScene.getScene());
 
->>>>>>> Stashed changes
 
                             }
 
-                             if(circle.isTrapped() && stars.getLast().hits_boundary()) {
-                                timeline.stop();
-<<<<<<< Updated upstream
-                                Alert alert = new Alert(Alert.AlertType.ERROR,
-                                        "You Lost");
-                                alert.show();
+//                             if(circle.isTrapped() && stars.getLast().hits_boundary()) {
+//                                timeline.stop();
+//                                 EndScene endScene=new EndScene(score,AverageReactionTime,
+//                                         "You were cornered", startScene.getScene(), stage);
+//                                stage.setScene(endScene.getScene());
+//                            }
 
-=======
-                                 EndScene endScene=new EndScene(score,AverageReactionTime,
-                                         "You were cornered", startScene.getScene(), stage);
-                                stage.setScene(endScene.getScene());
->>>>>>> Stashed changes
+                            if(stars.getLast().hits_boundary()) {
+                                Star star = stars.getLast();
+                                stars.remove(star);
+                                root.getChildren().remove(star);
+
+                                Star new_star = new Star();
+                                root.getChildren().add(new_star);
+                                new_star.StarSize(stars.getFirst().size*0.6);
+                                new_star.setRotate(stars.getFirst().current_angle);
+                                new_star.setAngle(stars.getFirst().current_angle);
+                                stars.addFirst(new_star);
                             }
 
 
 
                                 for (Star star: stars) {
-<<<<<<< Updated upstream
-                                    star.StarSize(1.01);
-=======
-                                    acceler+=0.000001;
+                                    acceler+=0.000003;
                                     star.StarSize(1.003+acceler);
->>>>>>> Stashed changes
 //                                  Here is the rotation function remove the comment if you want to test rotation, Jonathan
                                     if(startScene.rotate()) {
 
@@ -200,31 +194,13 @@ public class Main extends Application {
         timeline.setCycleCount(Timeline.INDEFINITE);
 
         // Start the timeline
-        timeline.play();
+//        timeline.play();
 
 
+        Helper.LabelHelper(scorel,15,"Score: "+ score);
+        Helper.LabelHelper(attemptsl,100,"Attempts: "+attempts);
+        Helper.LabelHelper(reactionTimel,230, "Average Reaction Time: "+ AverageReactionTime);
 
-        scorel.setText("Score: "+ score);
-        scorel.setLayoutX(15);
-        scorel.setLayoutY(10);
-        scorel.setTextFill(Color.WHITE);
-        scorel.setScaleX(1.5);
-        scorel.setScaleY(1.5);
-
-        attemptsl.setText("Attempts: "+attempts);
-        attemptsl.setLayoutX(100);
-        attemptsl.setLayoutY(10);
-        attemptsl.setTextFill(Color.WHITE);
-        attemptsl.setScaleX(1.5);
-        attemptsl.setScaleY(1.5);
-
-
-        reactionTimel.setText("Average Reaction Time: "+ AverageReactionTime);
-        reactionTimel.setLayoutX(230);
-        reactionTimel.setLayoutY(10);
-        reactionTimel.setTextFill(Color.WHITE);
-        reactionTimel.setScaleX(1.5);
-        reactionTimel.setScaleY(1.5);
 
 
 
@@ -236,11 +212,7 @@ public class Main extends Application {
 
 
             if (attempts == 0) {
-<<<<<<< Updated upstream
-                EndScene endScene = new EndScene(score,AverageReactionTime);
-=======
-                EndScene endScene = new EndScene(score,AverageReactionTime,"You Ran Out Of Attempts",startScene.getScene(),stage);
->>>>>>> Stashed changes
+                EndScene endScene = new EndScene(score,AverageReactionTime," Out Of Attempts",startScene.getScene(),stage);
                 stage.setScene(endScene.getScene());
             }
         }));
