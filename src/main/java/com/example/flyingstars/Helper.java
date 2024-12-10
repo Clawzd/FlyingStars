@@ -56,7 +56,7 @@ public class Helper {
             x = minX + random.nextDouble() * (maxX - minX);
             y = minY + random.nextDouble() * (maxY - minY);
 
-            if (!polygon.getBoundsInParent().contains(x,y) & (x<590) & (y<590)) {
+            if (!polygon.getBoundsInParent().contains(x,y) & (x<570) & (y<570)) {
                 return new double[]{x, y};
             }
         }

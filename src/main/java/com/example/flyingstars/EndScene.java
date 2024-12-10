@@ -13,7 +13,7 @@ import java.io.FileWriter;
 public class EndScene {
     private Scene scene;
     private Scene scene_to_go;
-    public EndScene(int score, double AverageReactionTime,String n, Scene start_scene, Stage stage) {
+    public EndScene(int score, double AverageReactionTime,String n) {
 
 
         Pane root =new Pane();
@@ -52,16 +52,9 @@ public class EndScene {
         youWere.setLayoutX(265);
         youWere.setLayoutY(200);
 
-        Button replay = new Button("Replay");
-        replay.setLayoutX(260);
-        replay.setLayoutY(10);
-        replay.setTextFill(Color.WHITE);
-        replay.setOnAction(event -> {
-            Main.restart(stage);
-            stage.setScene(start_scene);
-        });
 
-        root.getChildren().addAll(finalScore,finalAverageReactionTime,youWere,replay);
+
+        root.getChildren().addAll(finalScore,finalAverageReactionTime,youWere);
 
 
 

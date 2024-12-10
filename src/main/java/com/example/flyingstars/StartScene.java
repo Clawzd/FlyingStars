@@ -16,6 +16,7 @@ public class StartScene {
     private Scene scene;
 
     private ChoiceBox<String> choiceBox =new ChoiceBox<>();
+    private ChoiceBox<String> choiceBox1 =new ChoiceBox<>();
 
     public StartScene(Stage stage, Scene gameScene) {
 
@@ -42,10 +43,17 @@ public class StartScene {
         choiceBox.getItems().addAll("Rotate off", "Rotate on");
         choiceBox.setValue("Rotate off");
         choiceBox.setLayoutX(500);
+        choiceBox.setBackground(new Background(new BackgroundFill(Color.POWDERBLUE, null, null)));
         choiceBox.setLayoutY(500);
         choiceBox.getItems();
 
 
+        choiceBox1.getItems().addAll("Acceleration off", "Acceleration on");
+        choiceBox1.setValue("Acceleration off");
+        choiceBox1.setLayoutX(500);
+        choiceBox1.setBackground(new Background(new BackgroundFill(Color.PALEGREEN, null, null)));
+        choiceBox1.setLayoutY(540);
+        choiceBox1.getItems();
 
         Image backgroundImage = new Image("StartScene.jpg");
         ImageView backgroundView = new ImageView(backgroundImage);
@@ -54,7 +62,7 @@ public class StartScene {
 
 
         Pane root = new Pane();
-        root.getChildren().addAll(backgroundView, startButton,choiceBox);
+        root.getChildren().addAll(backgroundView, startButton,choiceBox,choiceBox1);
 
 
         scene = new Scene(root, 600, 600);
@@ -66,6 +74,9 @@ public class StartScene {
 
     public String getRotate() {
         return choiceBox.getValue();
+    }
+    public boolean acceleration() {
+        return choiceBox1.getValue().equals("Rotate on");
     }
 
     public boolean rotate() {

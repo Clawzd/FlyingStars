@@ -15,7 +15,6 @@ public class BallCircle extends Group {
     Star star;
 
     public Circle circle;
-    public boolean isDragging = false;
 
     public void changeStar(Star star) {
         this.star = star;
@@ -23,20 +22,8 @@ public class BallCircle extends Group {
     public Star getStar() {
        return  this.star;
     }
-    public boolean getDrag() {
-       return  this.isDragging;
-    }
 
 
-    public void setDrag(boolean drag) {
-        this.isDragging = drag;
-    }
-
-
-
-    public boolean isTrapped() {
-        return( (star.getPolygon().getBoundsInParent().getWidth() ) > 590 && (star.getPolygon().getBoundsInParent().getHeight() > 590 ) )&& star.getPolygon().getBoundsInParent().contains(MyPosition.lX,MyPosition.lY);
-    }
 
     public BallCircle(Star star1) {
         Helper helper = new Helper();
@@ -56,17 +43,8 @@ public class BallCircle extends Group {
         });
 
 
-        circle.setOnMouseReleased(event -> {
-            System.out.println("Mouse released");
-            this.setDrag(false);
-        });
-
-
-
-
 
         circle.setOnMouseDragged(event -> {
-            this.setDrag(true);
             Star star = this.getStar();
             double newCenterX = event.getSceneX() - offsetX;
             double newCenterY = event.getSceneY() - offsetY;
@@ -86,17 +64,6 @@ public class BallCircle extends Group {
             circle.setCenterX(newCenterX);
             circle.setCenterY(newCenterY);
 
-            for (Line line : star.LineList) {
-                Shape inter = Shape.intersect(circle,line);
-                if( inter.getBoundsInLocal().getWidth() > 0 &&
-                        inter.getBoundsInLocal().getHeight() > 0) {
-                    System.out.println("hit");
-                    Main.onHit(star,this,line);
-                    break;
-
-                }
-
-            }
 
         });
 
@@ -124,16 +91,14 @@ public class BallCircle extends Group {
     }
 
 
-    public boolean intersect_on_released(Star star1) {
-//        System.out.println("running"+" is dragging= " + getDrag());
+    public boolean intersect() {
 
-        if( getDrag()) return false;
-//        System.out.println("hi");
+        Star star1 = this.getStar();
         for (Line line : star1.LineList) {
             Shape inter = Shape.intersect(circle,line);
             if(( inter.getBoundsInLocal().getWidth() > 0 &&
-                    inter.getBoundsInLocal().getHeight() > 0) || line.contains(MyPosition.lX,MyPosition.lY))  {
-                Main.onHit(star,this,line);
+                    inter.getBoundsInLocal().getHeight() > 0) )  {
+                Main.onHit(star1,this,line);
                 return true;
             }
 
